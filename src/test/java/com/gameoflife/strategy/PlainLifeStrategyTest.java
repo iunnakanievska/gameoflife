@@ -24,7 +24,7 @@ public class PlainLifeStrategyTest {
     }
 
     @Test
-    public void cellWithTwoNeighmours_flip_ShouldRemainAlive() {
+    public void cellWithTwoNeighbours_flip_ShouldRemainAlive() {
         boolean[][] population = {
                 {false, true, false},
                 {false, true, false},
@@ -34,7 +34,7 @@ public class PlainLifeStrategyTest {
     }
 
     @Test
-    public void cellWithThreeNeighmours_flip_ShouldRemainAlive() {
+    public void cellWithThreeNeighbours_flip_ShouldRemainAlive() {
         boolean[][] population = {
                 {false, true, false},
                 {false, true, true},
@@ -54,7 +54,7 @@ public class PlainLifeStrategyTest {
     }
 
     @Test
-    public void reproduction_flip_ShouldRessurect() {
+    public void reproduction_flip_ShouldResurrect() {
         boolean[][] population = {
                 {false, false, true},
                 {false, false, true},
@@ -119,6 +119,7 @@ public class PlainLifeStrategyTest {
                 {false, false, false}
         };
         assertArrayEquals(expectedPopulation, plainLifeStrategy.live(population));
+        assertArrayEquals(population, plainLifeStrategy.live(expectedPopulation));
     }
 
     @Test
@@ -140,6 +141,7 @@ public class PlainLifeStrategyTest {
                 {false, false, false, false, false, false}
         };
         assertArrayEquals(expectedPopulation, plainLifeStrategy.live(population));
+        assertArrayEquals(population, plainLifeStrategy.live(expectedPopulation));
     }
 
     @Test
@@ -161,6 +163,7 @@ public class PlainLifeStrategyTest {
                 {false, false, false, false, false, false}
         };
         assertArrayEquals(expectedPopulation, plainLifeStrategy.live(population));
+        assertArrayEquals(population, plainLifeStrategy.live(expectedPopulation));
     }
 
     // Still Lifes Patterns
