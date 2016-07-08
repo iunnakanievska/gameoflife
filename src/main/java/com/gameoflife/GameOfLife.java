@@ -1,5 +1,7 @@
 package com.gameoflife;
 
+import com.gameoflife.printer.ConsolePopulationPrinter;
+import com.gameoflife.printer.PopulationPrinter;
 import com.gameoflife.strategy.LifeStrategy;
 import com.gameoflife.strategy.PlainLifeStrategy;
 
@@ -8,10 +10,17 @@ public class GameOfLife {
     private int rows = 10, columns = 10, generationsNumber = 10;
 
     private LifeStrategy lifeStrategy;
+    private PopulationPrinter populationPrinter;
+
+    public GameOfLife() {
+        // Default Life Strategy
+        this.lifeStrategy = new PlainLifeStrategy();
+        // Default Population Printer
+        this.populationPrinter = new ConsolePopulationPrinter();
+    }
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
-        gameOfLife.setLifeStrategy(new PlainLifeStrategy());
         gameOfLife.setGame();
     }
 
@@ -52,16 +61,8 @@ public class GameOfLife {
         return this.getLifeStrategy().live(population);
     }
 
-    void printPopulation(boolean[][] arr) {
-        for (int i = 0; i < arr.length; i++)
-            printPopulationRow(arr[i]);
-        System.out.println();
-    }
-
-    void printPopulationRow(boolean[] arr) {
-        for (int i = 0; i < arr.length; i++)
-            System.out.print(arr[i] ? '#' : '_');
-        System.out.println();
+    void printPopulation(boolean[][] population) {
+        this.getPopulationPrinter().printPopulation(population);
     }
 
     public LifeStrategy getLifeStrategy() {
@@ -70,5 +71,13 @@ public class GameOfLife {
 
     public void setLifeStrategy(LifeStrategy lifeStrategy) {
         this.lifeStrategy = lifeStrategy;
+    }
+
+    public PopulationPrinter getPopulationPrinter() {
+        return populationPrinter;
+    }
+
+    public void setPopulationPrinter(PopulationPrinter populationPrinter) {
+        this.populationPrinter = populationPrinter;
     }
 }
