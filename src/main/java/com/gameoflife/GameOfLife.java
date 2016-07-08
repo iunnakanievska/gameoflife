@@ -6,8 +6,12 @@ import com.gameoflife.strategy.LifeStrategy;
 import com.gameoflife.strategy.PlainLifeStrategy;
 
 public class GameOfLife {
-    //Grid size and number of generations
-    private int rows = 10, columns = 10, generationsNumber = 10;
+    // Default values for Grid size
+    private static int ROWS = 10, COLUMNS = 10;
+    // Default value for percentage of alive cells in grid
+    private static float ALIVE_PERCENTAGE = 0.5f;
+
+    private int generationsNumber = 10;
 
     private LifeStrategy lifeStrategy;
     private PopulationPrinter populationPrinter;
@@ -21,12 +25,26 @@ public class GameOfLife {
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
-        gameOfLife.setGame();
+
+        boolean[][] population = populate(ALIVE_PERCENTAGE);
+
+        gameOfLife.startGame(population);
     }
 
-    private static void populate(boolean[][] population, float alivePercentage) {
-        for (int i = 0; i < population.length; i++)
-            populateRow(population[i], alivePercentage);
+    public static boolean[][] populate(float alivePercentage) {
+        return populate(ROWS, COLUMNS, alivePercentage);
+    }
+
+    public static boolean[][] populate(int rows, int columns, float alivePercentage) {
+        boolean[][] population = new boolean[rows][columns];
+        populate(population, alivePercentage);
+        return population;
+    }
+
+    public static void populate(boolean[][] population, float alivePercentage) {
+        for (boolean[] populationRow : population) {
+            populateRow(populationRow, alivePercentage);
+        }
     }
 
     private static void populateRow(boolean[] population, float alivePercentage) {
@@ -39,15 +57,7 @@ public class GameOfLife {
         }
     }
 
-    void setGame() {
-        boolean[][] config = new boolean[rows][columns];
-        startGame(config);
-    }
-
-    void startGame(boolean[][] population) {
-        //Enter percentage of grid to be filled.
-        float alivePercentage = 0.50f;//(float)Math.random();
-        populate(population, alivePercentage);
+    public void startGame(boolean[][] population) {
         printPopulation(population);
         for (int generation = 0; generation < generationsNumber; generation++) {
             System.out.println("Generation #" + generation);
@@ -63,6 +73,14 @@ public class GameOfLife {
 
     void printPopulation(boolean[][] population) {
         this.getPopulationPrinter().printPopulation(population);
+    }
+
+    public int getGenerationsNumber() {
+        return generationsNumber;
+    }
+
+    public void setGenerationsNumber(int generationsNumber) {
+        this.generationsNumber = generationsNumber;
     }
 
     public LifeStrategy getLifeStrategy() {
