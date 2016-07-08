@@ -26,9 +26,13 @@ public class GameOfLife {
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
 
-        boolean[][] population = populate(ALIVE_PERCENTAGE);
+        boolean[][] population = populate();
 
         gameOfLife.startGame(population);
+    }
+
+    public static boolean[][] populate() {
+        return populate(ALIVE_PERCENTAGE);
     }
 
     public static boolean[][] populate(float alivePercentage) {
